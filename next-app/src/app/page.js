@@ -12,6 +12,8 @@ import { SocialLinks } from '@/components/SocialLinks';
 import { Legal } from '@/components/Legal';
 import { Link } from '@/components/Link';
 import { Text } from '@/components/Text';
+import { Header } from '@/components/Header';
+import PrizePool from '@/components/PrizePool/PrizePool';
 
 // Original had: import { Secuence } from '../components/Secuence';
 // Note: I need to ensure import paths are correct. @/ is src/
@@ -27,7 +29,8 @@ const styles = theme => {
       flexDirection: 'column',
       alignItems: 'center',
       margin: [0, 'auto'],
-      padding: 20
+      paddingTop: 120,
+      padding: [120, 20, 20, 20]
     },
     presenter: {
       fontFamily: theme.typography.secondary,
@@ -118,35 +121,39 @@ class Component extends React.Component {
     const { classes } = this.props;
 
     return (
-      <SecuenceComponent ref={ref => (this.secuenceElement = ref)}>
-        <div className={classes.root}>
-          <div className={classes.content}>
-            <span className={classes.presenter}>Computer Science and Engineering Association Presents</span>
-            <Brand
-              className={classes.brand}
-              onLinkStart={this.onLinkStart}
-            />
-            <span className={classes.dates}>FEB 13 & 14</span>
-            <Link
+      <>
+        <SecuenceComponent ref={ref => (this.secuenceElement = ref)}>
+          <div className={classes.root}>
+            <div className={classes.content}>
+              <span className={classes.presenter}>Computer Science and Engineering Association</span>
+              <span className={classes.presenter}>Presents</span>
+              <Brand
+                className={classes.brand}
+                onLinkStart={this.onLinkStart}
+              />
+              <span className={classes.dates}>FEB 13 & 14</span>
+              {/* <Link
               href='/schedule'
               className={classes.scheduleLink}
               onLinkStart={this.onLinkStart}
             >
               <Text>Schedule</Text>
-            </Link>
-            <Menu
-              className={classes.menu}
-              animation={{ duration: { enter: 400 } }}
-              scheme='expand'
-              onLinkStart={this.onLinkStart}
-            />
-            <SocialLinks
-              className={classes.social}
-              onLinkStart={this.onLinkStart}
-            />
+            </Link> */}
+              <Menu
+                className={classes.menu}
+                animation={{ duration: { enter: 400 } }}
+                scheme='expand'
+                onLinkStart={this.onLinkStart}
+              />
+              <SocialLinks
+                className={classes.social}
+                onLinkStart={this.onLinkStart}
+              />
+            </div>
+            <PrizePool />
           </div>
-        </div>
-      </SecuenceComponent>
+        </SecuenceComponent>
+      </>
     );
   }
 }

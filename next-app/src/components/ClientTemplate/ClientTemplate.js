@@ -58,7 +58,7 @@ const Template = (props) => {
                 {...backgroundProps}
                 animation={{ show, ...(backgroundProps.animation || {}) }}
             >
-                {isURLContent ? <App>{children}</App> : children}
+                {show && (isURLContent ? <App>{children}</App> : children)}
 
                 {!show && (
                     <div className={classes.enterOverlay}>
