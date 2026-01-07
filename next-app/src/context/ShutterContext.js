@@ -10,11 +10,11 @@ export function ShutterProvider({ children }) {
     const completeCallbackRef = useRef(null);
     const audioRef = useRef(null);
 
-    // Play shutter sound using deploy.mp3
+    // Play shutter sound using shutter.mp3
     const playShutterSound = useCallback(() => {
         try {
             if (!audioRef.current) {
-                audioRef.current = new Audio('/sounds/deploy.mp3');
+                audioRef.current = new Audio('/sounds/shutter.mp3');
             }
             audioRef.current.currentTime = 0;
             audioRef.current.volume = 0.5;
