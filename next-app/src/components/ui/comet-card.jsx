@@ -15,8 +15,8 @@ export const CometCard = ({
   translateDepth = 15,
   className,
   children,
-  borderColor = "rgba(199, 32, 113, 0.6)",
-  glowColor = "rgba(199, 32, 113, 0.4)",
+  borderColor = "rgba(199, 32, 113, 0.35)",
+  glowColor = "rgba(199, 32, 113, 0.2)",
 }) => {
   const ref = useRef(null);
   const sounds = useContext(SoundsContext);
@@ -48,7 +48,7 @@ export const CometCard = ({
   const glareX = useTransform(mouseXSpring, [-0.5, 0.5], [0, 100]);
   const glareY = useTransform(mouseYSpring, [-0.5, 0.5], [0, 100]);
 
-  const glareBackground = useMotionTemplate`radial-gradient(circle at ${glareX}% ${glareY}%, rgba(199, 32, 113, 0.6) 0%, rgba(199, 32, 113, 0.3) 40%, rgba(199, 32, 113, 0) 70%)`;
+  const glareBackground = useMotionTemplate`radial-gradient(circle at ${glareX}% ${glareY}%, rgba(199, 32, 113, 0.3) 0%, rgba(199, 32, 113, 0.15) 40%, rgba(199, 32, 113, 0) 70%)`;
 
   // Idle floating animation for desktop to hint at interactivity
   useEffect(() => {
@@ -167,11 +167,11 @@ export const CometCard = ({
       >
         {/* Outer glow border */}
         <div
-          className="absolute -inset-[3px] rounded-[18px]"
+          className="absolute -inset-[2px] rounded-[18px]"
           style={{
             background: `linear-gradient(135deg, ${borderColor}, transparent 50%, ${glowColor})`,
-            filter: isHovered ? "blur(6px)" : "blur(3px)",
-            opacity: isHovered ? 0.9 : 0.6,
+            filter: isHovered ? "blur(4px)" : "blur(2px)",
+            opacity: isHovered ? 0.6 : 0.35,
             transition: "filter 0.3s ease, opacity 0.3s ease",
           }}
         />

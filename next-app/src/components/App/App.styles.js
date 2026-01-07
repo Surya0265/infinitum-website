@@ -63,7 +63,8 @@ const styles = theme => ({
 
   '@media (min-width: 768px)': {
     content: {
-      overflow: 'hidden'
+      overflowX: 'hidden',
+      overflowY: 'auto'
     }
   }
 });

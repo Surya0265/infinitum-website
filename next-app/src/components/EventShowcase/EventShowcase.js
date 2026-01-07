@@ -142,13 +142,13 @@ export default function EventShowcase({ sounds, initialEventId }) {
                             const list = Array.isArray(res) ? res : (res.papers || res.data || []);
                             registeredIds = list.map(p => p.paperId);
                         }
-                        
+
                         items = items.map(item => ({
                             ...item,
                             isRegistered: registeredIds.includes(item.eventId || item.workshopId || item.paperId)
                         }));
                     } catch (e) {
-                         console.error("Failed to sync registrations", e);
+                        console.error("Failed to sync registrations", e);
                     }
                 }
 
@@ -483,20 +483,18 @@ export default function EventShowcase({ sounds, initialEventId }) {
                 </button>
             </div>
 
-            {/* Event Name with Bracket Frame - Moved outside main layout for alignment */}
+            {/* Event Name with Bracket Frame - Uses corner elements for all 4 corners */}
             <div className={styles.headerContainer}>
                 <div className={styles.eventHeader}>
-                    <div className={styles.bracket}>
-                        <span className={styles.bracketCorner}></span>
-                        <span className={styles.bracketCorner}></span>
-                    </div>
+                    {/* Corner brackets */}
+                    <span className={`${styles.corner} ${styles.cornerTopLeft}`}></span>
+                    <span className={`${styles.corner} ${styles.cornerTopRight}`}></span>
+                    <span className={`${styles.corner} ${styles.cornerBottomLeft}`}></span>
+                    <span className={`${styles.corner} ${styles.cornerBottomRight}`}></span>
+                    
                     <h1 className={`${styles.eventName} ${isTransitioning ? styles.fadeOut : styles.fadeIn} `}>
                         {currentEvent.eventName}
                     </h1>
-                    <div className={styles.bracket}>
-                        <span className={styles.bracketCorner}></span>
-                        <span className={styles.bracketCorner}></span>
-                    </div>
                 </div>
 
                 {/* Tagline */}
@@ -759,7 +757,7 @@ export default function EventShowcase({ sounds, initialEventId }) {
                         width: '100%',
                         height: '100%',
                         background: 'rgba(0, 0, 0, 0.7)',
-                        zIndex: 1000,
+                        zIndex: 9999,
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
