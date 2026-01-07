@@ -2,6 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import { usePathname } from 'next/navigation';
 
 import { AppContent } from '../AppContent';
 import { Header } from '../Header';
@@ -11,6 +12,7 @@ import { useShutter } from '@/context/ShutterContext';
 // Wrapper component to use hooks
 function AppWithShutter({ classes, className, children, ...etc }) {
   const { shutterState } = useShutter();
+  const pathname = usePathname();
   const isShuttering = shutterState === 'closing' || shutterState === 'closed' || shutterState === 'opening';
   const contentRef = useRef(null);
 
@@ -21,6 +23,8 @@ function AppWithShutter({ classes, className, children, ...etc }) {
     }
   }, []);
 
+  // Only show footer on routes other than home
+  const showFooter = pathname !== '/';
   return (
     <div className={cx(classes.root, className)} {...etc}>
       <div
@@ -39,7 +43,7 @@ function AppWithShutter({ classes, className, children, ...etc }) {
         <AppContent>
           {children}
         </AppContent>
-        <Footer />
+        {showFooter && <Footer />}
       </div>
     </div>
   );
