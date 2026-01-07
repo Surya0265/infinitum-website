@@ -9,8 +9,14 @@ import { CometCard } from '@/components/ui/comet-card';
 import styles from './EventShowcase.module.css';
 
 export default function EventShowcase({ sounds, initialEventId }) {
+    const searchParams = useSearchParams();
     const { isAuthenticated, user } = useAuth();
     const [category, setCategory] = useState(searchParams.get('category') || 'events');
+
+    // Determine effective event ID from props or URL
+    const urlEventId = searchParams.get('id');
+    const effectiveEventId = initialEventId || urlEventId;
+
     const [events, setEvents] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -38,33 +44,33 @@ export default function EventShowcase({ sounds, initialEventId }) {
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
-    // Handle initialEventId to set correct category
+    // Handle effectiveEventId to set correct category
     useEffect(() => {
-        if (initialEventId && !hasInitialSet) {
-            console.log("Deep linking to event:", initialEventId);
-            // Check all data sources for the initialEventId
-            let targetEvent = eventsData.find(e => e.eventId === initialEventId);
+        if (effectiveEventId && !hasInitialSet) {
+            console.log("Deep linking to event:", effectiveEventId);
+            // Check all data sources for the effectiveEventId
+            let targetEvent = eventsData.find(e => e.eventId === effectiveEventId);
             let targetCat = 'events';
 
             if (!targetEvent) {
-                targetEvent = workshopsData.find(w => w.workshopId === initialEventId);
+                targetEvent = workshopsData.find(w => w.workshopId === effectiveEventId);
                 if (targetEvent) targetCat = 'workshops';
             }
             if (!targetEvent) {
-                targetEvent = papersData.find(p => p.paperId === initialEventId);
+                targetEvent = papersData.find(p => p.paperId === effectiveEventId);
                 if (targetEvent) targetCat = 'papers';
             }
 
             if (targetEvent) {
-                console.log("Found event category for initialEventId:", targetCat);
+                console.log("Found event category for effectiveEventId:", targetCat);
                 if (category !== targetCat) {
                     setCategory(targetCat);
                 }
             } else {
-                console.warn("Event ID not found in local data:", initialEventId);
+                console.warn("Event ID not found in local data:", effectiveEventId);
             }
         }
-    }, [initialEventId, hasInitialSet, category]); // Added category to dependencies to prevent infinite loop if category is already correct
+    }, [effectiveEventId, hasInitialSet, category]); // Added category to dependencies to prevent infinite loop if category is already correct
 
     // Debug mount/unmount
     useEffect(() => {
@@ -119,19 +125,46 @@ export default function EventShowcase({ sounds, initialEventId }) {
                     }));
                 }
 
+                // Check Registrations
+                if (isAuthenticated) {
+                    try {
+                        let registeredIds = [];
+                        if (category === 'events') {
+                            const res = await eventService.getUserEvents();
+                            const list = Array.isArray(res) ? res : (res.events || res.data || []);
+                            registeredIds = list.map(e => e.eventId);
+                        } else if (category === 'workshops') {
+                            const res = await eventService.getUserWorkshops();
+                            const list = Array.isArray(res) ? res : (res.workshops || res.data || []);
+                            registeredIds = list.map(w => w.workshopId);
+                        } else if (category === 'papers') {
+                            const res = await eventService.getUserPapers();
+                            const list = Array.isArray(res) ? res : (res.papers || res.data || []);
+                            registeredIds = list.map(p => p.paperId);
+                        }
+                        
+                        items = items.map(item => ({
+                            ...item,
+                            isRegistered: registeredIds.includes(item.eventId || item.workshopId || item.paperId)
+                        }));
+                    } catch (e) {
+                         console.error("Failed to sync registrations", e);
+                    }
+                }
+
                 console.log('✅ Setting events:', items.length);
                 setEvents(items);
 
                 // Deep Linking Logic
-                if (initialEventId && !hasInitialSet) {
+                if (effectiveEventId && !hasInitialSet) {
                     const idx = items.findIndex(e =>
-                        (e.eventId === initialEventId) ||
-                        (e.workshopId === initialEventId) ||
-                        (e.paperId === initialEventId)
+                        (e.eventId === effectiveEventId) ||
+                        (e.workshopId === effectiveEventId) ||
+                        (e.paperId === effectiveEventId)
                     );
 
                     if (idx !== -1) {
-                        console.log("🎯 Found initial event at index:", idx);
+                        console.log("🎯 Found effective event at index:", idx);
                         setActiveEventIndex(idx);
                         setHasInitialSet(true);
                     } else {
@@ -141,14 +174,14 @@ export default function EventShowcase({ sounds, initialEventId }) {
 
                         // Determine expected category for current ID
                         let expectedCategory = 'events';
-                        if (workshopsData.some(w => w.workshopId === initialEventId)) expectedCategory = 'workshops';
-                        else if (papersData.some(p => p.paperId === initialEventId)) expectedCategory = 'papers';
+                        if (workshopsData.some(w => w.workshopId === effectiveEventId)) expectedCategory = 'workshops';
+                        else if (papersData.some(p => p.paperId === effectiveEventId)) expectedCategory = 'papers';
 
                         if (category !== expectedCategory) {
                             console.log(`⏳ Waiting for category switch to ${expectedCategory}...`);
                         } else {
                             // Correct category but ID not found? Maybe invalid ID.
-                            console.warn("⚠️ Initial event ID not found in its expected category:", category);
+                            console.warn("⚠️ Effective event ID not found in its expected category:", category);
                             // Fallback to 0 if we really can't find it.
                             if (items.length > 0) setActiveEventIndex(0);
                         }
@@ -165,7 +198,7 @@ export default function EventShowcase({ sounds, initialEventId }) {
             }
         };
         loadEvents();
-    }, [category, initialEventId, hasInitialSet]); // Added initialEventId and hasInitialSet dependencies
+    }, [category, effectiveEventId, hasInitialSet, isAuthenticated]); // Added dependencies
 
     // Fetch full details - No longer needed as all data is hardcoded
     useEffect(() => {
@@ -432,8 +465,21 @@ export default function EventShowcase({ sounds, initialEventId }) {
                 {!isMobile && renderDropdown()}
 
                 {/* Register Button */}
-                <button className={styles.registerButton} onClick={handleRegisterClick}>
-                    <span>Register Now</span>
+                <button
+                    className={styles.registerButton}
+                    onClick={!currentEvent.isRegistered ? handleRegisterClick : undefined}
+                    style={{
+                        background: currentEvent.isRegistered ? '#28a745' : undefined,
+                        cursor: currentEvent.isRegistered ? 'default' : 'pointer',
+                        borderColor: currentEvent.isRegistered ? '#28a745' : undefined,
+                    }}
+                >
+                    <span>
+                        {currentEvent.isRegistered
+                            ? 'Registered'
+                            : (category === 'papers' ? 'Submit' : 'Register Now')
+                        }
+                    </span>
                 </button>
             </div>
 
@@ -682,13 +728,19 @@ export default function EventShowcase({ sounds, initialEventId }) {
                                     className={styles.registerBtn}
                                     onClick={!currentEvent.isRegistered ? handleRegisterClick : undefined}
                                     style={{
-                                        opacity: currentEvent.isRegistered ? 0.7 : 1,
+                                        opacity: currentEvent.isRegistered ? 1 : 1,
                                         cursor: currentEvent.isRegistered ? 'default' : 'pointer',
-                                        background: currentEvent.isRegistered ? 'rgba(0, 255, 0, 0.2)' : undefined,
-                                        borderColor: currentEvent.isRegistered ? '#00ff00' : undefined,
+                                        background: currentEvent.isRegistered ? '#28a745' : undefined,
+                                        borderColor: currentEvent.isRegistered ? '#28a745' : undefined,
+                                        color: currentEvent.isRegistered ? '#fff' : undefined,
                                     }}
                                 >
-                                    <span>{currentEvent.isRegistered ? 'Registered' : 'Register Now'}</span>
+                                    <span>
+                                        {currentEvent.isRegistered
+                                            ? 'Registered'
+                                            : (category === 'papers' ? 'Submit' : 'Register Now')
+                                        }
+                                    </span>
                                     {/* <i className="ri-arrow-right-up-line"></i> */}
                                 </button>
                             </div>
