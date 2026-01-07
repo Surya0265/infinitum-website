@@ -1,14 +1,33 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { eventsData } from '@/data/eventsData';
+import { eventService } from '@/services/eventservice';
 import { CometCard } from '@/components/ui/comet-card';
 import styles from './EventShowcase.module.css';
 
 export default function EventShowcase({ sounds }) {
+    const [events, setEvents] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [activeEventIndex, setActiveEventIndex] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // Fetch events
+    useEffect(() => {
+        const fetchEvents = async () => {
+            try {
+                const data = await eventService.getAllEvents();
+                if (data.success && data.events) {
+                    setEvents(data.events);
+                }
+            } catch (error) {
+                console.error("Failed to fetch events", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchEvents();
+    }, []);
 
     // Lock body scroll when overlay is open
     useEffect(() => {
@@ -52,12 +71,13 @@ export default function EventShowcase({ sounds }) {
         }
     };
 
-    const currentEvent = eventsData[activeEventIndex];
+    const currentEvent = events[activeEventIndex];
 
     const handleEventChange = (direction) => {
+        if (events.length === 0) return;
         const newIndex = direction === 'next'
-            ? (activeEventIndex + 1) % eventsData.length
-            : (activeEventIndex - 1 + eventsData.length) % eventsData.length;
+            ? (activeEventIndex + 1) % events.length
+            : (activeEventIndex - 1 + events.length) % events.length;
 
         // Play click sound immediately
         if (sounds && sounds.click) {
@@ -152,7 +172,7 @@ export default function EventShowcase({ sounds }) {
                     <div className={styles.eventImageContainer}>
                         {/* Mobile Swipe Indicator (Dots) */}
                         <div className={styles.mobileSwipeIndicator}>
-                            {eventsData.map((_, index) => (
+                            {events.map((_, index) => (
                                 <span
                                     key={index}
                                     className={`${styles.swipeDot} ${index === activeEventIndex ? styles.activeDot : ''}`}
@@ -161,7 +181,7 @@ export default function EventShowcase({ sounds }) {
                         </div>
 
                         {/* Navigation Arrows - Using absolute positioning relative to this container which hugs the image */}
-                        {eventsData.length > 1 && (
+                        {events.length > 1 && (
                             <>
                                 <button
                                     className={`${styles.navArrow} ${styles.navLeft}`}
@@ -204,10 +224,10 @@ export default function EventShowcase({ sounds }) {
                     </div>
 
                     {/* Event Counter - Below Image */}
-                    {eventsData.length > 1 && (
+                    {events.length > 1 && (
                         <div className={styles.eventCounterContainer}>
                             <span className={styles.eventCounter}>
-                                Event {activeEventIndex + 1} of {eventsData.length}
+                                Event {activeEventIndex + 1} of {events.length}
                             </span>
                         </div>
                     )}
