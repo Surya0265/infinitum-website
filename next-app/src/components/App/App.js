@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
@@ -12,6 +12,14 @@ import { useShutter } from '@/context/ShutterContext';
 function AppWithShutter({ classes, className, children, ...etc }) {
   const { shutterState } = useShutter();
   const isShuttering = shutterState === 'closing' || shutterState === 'closed' || shutterState === 'opening';
+  const contentRef = useRef(null);
+
+  // Scroll to top on mount (handles client-side navigation)
+  useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.scrollTo(0, 0);
+    }
+  }, []);
 
   return (
     <div className={cx(classes.root, className)} {...etc}>
@@ -22,7 +30,10 @@ function AppWithShutter({ classes, className, children, ...etc }) {
           shutterState === 'closed' && classes.shutterClosed,
           shutterState === 'opening' && classes.shutterOpening
         )}
-        ref={ref => (window.__appContentElement = ref)}
+        ref={ref => {
+          contentRef.current = ref;
+          window.__appContentElement = ref;
+        }}
       >
         <Header />
         <AppContent>
