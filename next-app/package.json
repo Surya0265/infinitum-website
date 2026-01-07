@@ -27,11 +27,8 @@
     "react-dom": "19.2.3",
     "react-helmet": "^6.1.0",
     "react-jss": "^10.10.0",
-<<<<<<< HEAD
-    "three": "^0.182.0"
-=======
+    "three": "^0.182.0",
     "tailwind-merge": "^3.4.0"
->>>>>>> 90dc5a0efd7137c28b429f25c212a57f2d40248a
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",
