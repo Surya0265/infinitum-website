@@ -37,6 +37,11 @@ export default function EventShowcase({ sounds, initialEventId }) {
     const dropdownRef = useRef(null);
     const [hasInitialSet, setHasInitialSet] = useState(false); // Track if initial event is set
     const [isMobile, setIsMobile] = useState(false); // Track mobile view
+    const [touchStart, setTouchStart] = useState(null);
+    const [touchEnd, setTouchEnd] = useState(null);
+
+    // Minimum swipe distance (in px)
+    const minSwipeDistance = 50;
 
     // Detect mobile screen
     useEffect(() => {
@@ -45,6 +50,31 @@ export default function EventShowcase({ sounds, initialEventId }) {
         window.addEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
+
+    // Touch handlers for swipe
+    const onTouchStart = (e) => {
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e) => {
+        setTouchEnd(e.targetTouches[0].clientX);
+    };
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+        
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+        
+        if (isLeftSwipe) {
+            handleEventChange('next');
+        }
+        if (isRightSwipe) {
+            handleEventChange('prev');
+        }
+    };
 
     // Handle effectiveEventId to set correct category
     useEffect(() => {
@@ -534,7 +564,12 @@ export default function EventShowcase({ sounds, initialEventId }) {
                 {/* Center Event Display - Now contains primarily the image */}
                 <div className={styles.eventDisplay}>
                     {/* Event Image on Platform */}
-                    <div className={styles.eventImageContainer}>
+                    <div 
+                        className={styles.eventImageContainer}
+                        onTouchStart={isMobile ? onTouchStart : undefined}
+                        onTouchMove={isMobile ? onTouchMove : undefined}
+                        onTouchEnd={isMobile ? onTouchEnd : undefined}
+                    >
                         {/* Mobile Swipe Indicator (Dots) */}
                         <div className={styles.mobileSwipeIndicator}>
                             {events.map((_, index) => (

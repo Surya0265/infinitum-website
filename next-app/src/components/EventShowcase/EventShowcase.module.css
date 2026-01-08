@@ -506,6 +506,11 @@
   justify-content: center;
   perspective: 1000px;
   margin: 0 auto;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .eventImage {
@@ -1453,6 +1458,30 @@
   text-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
 }
 
+@media (max-width: 768px) {
+  .modalTitle {
+    font-size: 1.6rem;
+    text-align: left;
+  }
+  
+  .modalLabel {
+    font-size: 0.7rem;
+    text-align: left;
+  }
+  
+  .modalOneLiner {
+    text-align: left;
+  }
+  
+  .modalDesc {
+    text-align: left;
+  }
+  
+  .modalInfoGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .modalDesc {
   font-family: 'Electrolize', sans-serif;
   font-size: 1rem;
@@ -1741,11 +1770,12 @@
 
   .modalContent {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
     overflow-y: auto;
-    max-height: 80vh;
-    display: block;
+    max-height: calc(85vh - 80px);
+    display: flex;
+    padding-bottom: 20px;
   }
 
   .modalPosterWrapper {
@@ -1753,24 +1783,29 @@
     top: auto;
     transform: none;
     margin-bottom: 20px;
+    align-self: center;
   }
 
   .modalPoster {
-    width: 220px;
-    height: 220px;
+    width: 200px;
+    height: 200px;
     position: relative;
   }
 
   .modal {
-    padding: 25px;
+    padding: 20px;
     padding-top: 60px;
+    max-height: 85vh;
+    overflow-y: auto;
   }
 
   .modalInfo {
-    align-items: center;
-    overflow: visible;
+    align-items: flex-start;
+    overflow-y: visible;
     max-height: none;
     padding-top: 10px;
+    padding-right: 0;
+    width: 100%;
   }
 
   /* Mobile Nav Arrows: Move to sides, off the image */
@@ -1937,19 +1972,28 @@
 
   /* Fix Modal Mobile Styles */
   .modal {
-    padding-bottom: 80px;
-    /* Ensure ample space at bottom */
+    padding-bottom: 20px;
     overflow-y: auto;
   }
 
   .modalContent {
-    padding-bottom: 40px;
+    padding-bottom: 20px;
   }
 
   .registerBtn {
-    margin-bottom: 40px;
-    /* Force space at bottom */
+    margin-bottom: 20px;
     width: 100%;
-    margin-top: 24px;
+    margin-top: 20px;
+    padding: 14px 24px;
+    font-size: 0.9rem;
+  }
+  
+  .modalSectionTitle {
+    text-align: left;
+  }
+  
+  .modalRounds,
+  .modalContacts {
+    width: 100%;
   }
 }
