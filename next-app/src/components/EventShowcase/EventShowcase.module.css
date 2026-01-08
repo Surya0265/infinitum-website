@@ -176,7 +176,7 @@
   border-bottom: 1px solid rgba(199, 32, 113, 0.3);
   position: sticky;
   top: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: transparent;
   z-index: 5;
 }
 
@@ -185,7 +185,7 @@
   font-size: 14px;
   font-weight: 600;
   color: #c72071;
-  border-bottom: 2px solid #c72071;
+  border-bottom: none;
   padding-bottom: 5px;
 }
 
