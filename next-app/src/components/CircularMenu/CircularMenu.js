@@ -6,12 +6,12 @@ import { Howl } from 'howler';
 import styles from './CircularMenu.module.css';
 
 const MENU_ITEMS = [
-    { label: 'Home', icon: 'ri-home-line', href: '/' },
-    { label: 'Events', icon: 'ri-calendar-event-line', href: '/events?category=events' },
-    { label: 'Schedule', icon: 'ri-calendar-line', href: '/schedule' },
-    { label: 'Workshops', icon: 'ri-tools-line', href: '/events?category=workshops' },
-    { label: 'Papers', icon: 'ri-article-line', href: '/events?category=papers' },
-    { label: 'Profile', icon: 'ri-user-line', href: '/portal/profile' },
+    { label: 'Home', icon: 'ri-home-line', href: '/', match: ['/'] },
+    { label: 'Profile', icon: 'ri-user-line', href: '/portal/profile', match: ['/portal/profile', '/portal'] },
+    { label: 'Events', icon: 'ri-calendar-event-line', href: '/events?category=events', match: ['/events?category=events', '/events'] },
+    { label: 'Schedule', icon: 'ri-calendar-line', href: '/schedule', match: ['/schedule'] },
+    { label: 'Workshops', icon: 'ri-tools-line', href: '/events?category=workshops', match: ['/events?category=workshops'] },
+    { label: 'Papers', icon: 'ri-article-line', href: '/events?category=papers', match: ['/events?category=papers'] },
 ];
 
 // Sound effects
@@ -75,12 +75,41 @@ export default function CircularMenu() {
 
     useEffect(() => {
         if (!isMounted) return;
-        const index = MENU_ITEMS.findIndex(item => item.href === pathname);
+        
+        // Build full path with search params
+        let fullPath = pathname;
+        if (typeof window !== 'undefined') {
+            fullPath = window.location.pathname + window.location.search;
+        }
+        
+        // Find matching menu item
+        const index = MENU_ITEMS.findIndex(item => {
+            if (!item.match) return item.href === fullPath;
+            return item.match.some(matchPath => {
+                // Exact match
+                if (matchPath === fullPath) return true;
+                // Path-only match (ignoring query params)
+                if (matchPath === pathname) return true;
+                // For /events, check if path starts with it and has category param
+                if (matchPath.includes('/events') && fullPath.includes('/events')) {
+                    const categoryMatch = matchPath.match(/category=(\w+)/);
+                    if (categoryMatch) {
+                        return fullPath.includes(`category=${categoryMatch[1]}`);
+                    }
+                    return true;
+                }
+                return false;
+            });
+        });
+        
         if (index !== -1) {
             setActiveIndex(index);
             setSelectedIndex(index);
-            // Only set initial rotation on first mount, not on pathname changes
-            // This prevents backward rotation after navigation
+            
+            // Rotate wheel to show active page at top (only on initial mount)
+            const segmentAngle = 360 / MENU_ITEMS.length;
+            const targetRotation = -index * segmentAngle;
+            setRotationAngle(targetRotation);
         } else {
             // For login/register pages or any other page not in menu, remove selection
             setActiveIndex(-1);
@@ -385,7 +414,7 @@ export default function CircularMenu() {
 
             {/* Toggle Button with pulse animation for new users */}
             <button className={`${styles.toggleBtn} ${showHint ? styles.pulsing : ''}`} onClick={toggleMenu}>
-                <i className={`ri-menu-3-line ${styles.menuIcon}`}></i>
+                <i className={`ri-compass-3-line ${styles.menuIcon}`}></i>
                 <i className={`ri-close-line ${styles.closeIcon}`}></i>
             </button>
 

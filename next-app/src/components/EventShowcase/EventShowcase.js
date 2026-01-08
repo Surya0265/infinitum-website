@@ -469,9 +469,11 @@ export default function EventShowcase({ sounds, initialEventId }) {
                     className={styles.registerButton}
                     onClick={!currentEvent.isRegistered ? handleRegisterClick : undefined}
                     style={{
-                        background: currentEvent.isRegistered ? '#28a745' : undefined,
+                        background: currentEvent.isRegistered ? 'transparent' : undefined,
                         cursor: currentEvent.isRegistered ? 'default' : 'pointer',
-                        borderColor: currentEvent.isRegistered ? '#28a745' : undefined,
+                        borderColor: currentEvent.isRegistered ? '#00E676' : undefined,
+                        color: currentEvent.isRegistered ? '#00E676' : undefined,
+                        boxShadow: currentEvent.isRegistered ? 'none' : undefined,
                     }}
                 >
                     <span>
@@ -730,9 +732,10 @@ export default function EventShowcase({ sounds, initialEventId }) {
                                     style={{
                                         opacity: currentEvent.isRegistered ? 1 : 1,
                                         cursor: currentEvent.isRegistered ? 'default' : 'pointer',
-                                        background: currentEvent.isRegistered ? '#28a745' : undefined,
-                                        borderColor: currentEvent.isRegistered ? '#28a745' : undefined,
-                                        color: currentEvent.isRegistered ? '#fff' : undefined,
+                                        background: currentEvent.isRegistered ? 'transparent' : undefined,
+                                        borderColor: currentEvent.isRegistered ? '#00E676' : undefined,
+                                        color: currentEvent.isRegistered ? '#00E676' : undefined,
+                                        boxShadow: currentEvent.isRegistered ? 'none' : undefined,
                                     }}
                                 >
                                     <span>

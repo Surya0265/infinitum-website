@@ -165,13 +165,13 @@ export const CometCard = ({
         }}
         className="relative rounded-2xl"
       >
-        {/* Outer glow border */}
+        {/* Outer glow border - disabled */}
         <div
           className="absolute -inset-[3px] rounded-[18px]"
           style={{
             background: `linear-gradient(135deg, ${borderColor}, transparent 50%, ${glowColor})`,
-            filter: isHovered ? "blur(6px)" : "blur(3px)",
-            opacity: isHovered ? 0.9 : 0.6,
+            filter: "none",
+            opacity: 0,
             transition: "filter 0.3s ease, opacity 0.3s ease",
           }}
         />
@@ -208,21 +208,21 @@ export const CometCard = ({
         />
       </motion.div>
 
-      {/* Glare circle - positioned BELOW the card vertically */}
+      {/* Glare circle - disabled */}
       <motion.div
         className="pointer-events-none rounded-full"
         style={{
           position: "absolute",
-          top: "100%", // Start at the bottom of the card
+          top: "100%",
           left: 0,
           right: 0,
           background: glareBackground,
           width: "100%",
           height: "80px",
-          marginTop: isMobile ? "80px" : "280px", // Adjusted based on 'slightly down' feedback
-          opacity: isHovered ? 0.9 : 0.5,
+          marginTop: isMobile ? "80px" : "280px",
+          opacity: 0,
           filter: "blur(15px)",
-          zIndex: -1, // Ensure it's behind if needed, though top:100% puts it outside
+          zIndex: -1,
         }}
         transition={{ duration: 0.3 }}
       />
