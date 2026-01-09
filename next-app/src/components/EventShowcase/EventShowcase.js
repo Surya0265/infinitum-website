@@ -515,9 +515,9 @@ export default function EventShowcase({ sounds, initialEventId }) {
                         style={{
                             background: currentEvent.isRegistered ? 'transparent' : undefined,
                             cursor: currentEvent.isRegistered ? 'default' : 'pointer',
-                            borderColor: currentEvent.isRegistered ? '#00E676' : undefined,
-                            color: currentEvent.isRegistered ? '#00E676' : undefined,
-                            boxShadow: currentEvent.isRegistered ? 'none' : undefined,
+                            borderColor: currentEvent.isRegistered ? '#9E9E9E' : undefined,
+                            color: currentEvent.isRegistered ? '#B0B0B0' : undefined,
+                            boxShadow: currentEvent.isRegistered ? '0 0 15px rgba(176, 176, 176, 0.3)' : undefined,
                         }}
                     >
                         <span>
@@ -785,8 +785,9 @@ export default function EventShowcase({ sounds, initialEventId }) {
                                             opacity: currentEvent.isRegistered ? 1 : 1,
                                             cursor: currentEvent.isRegistered ? 'default' : 'pointer',
                                             background: currentEvent.isRegistered ? 'transparent' : undefined,
-                                            borderColor: currentEvent.isRegistered ? '#00E676' : undefined,
-                                            color: currentEvent.isRegistered ? '#00E676' : undefined,
+                                            borderColor: currentEvent.isRegistered ? '#9E9E9E' : undefined,
+                                            color: currentEvent.isRegistered ? '#B0B0B0' : undefined,
+                                        boxShadow: currentEvent.isRegistered ? '0 0 15px rgba(176, 176, 176, 0.3)' : undefined,
                                             boxShadow: currentEvent.isRegistered ? 'none' : undefined,
                                         }}
                                     >
