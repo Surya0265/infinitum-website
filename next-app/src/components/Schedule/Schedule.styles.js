@@ -22,7 +22,7 @@ export const styles = theme => ({
     alignItems: 'center', // Force center alignment
     justifyContent: 'center',
     textAlign: 'center',
-    marginBottom: 0,
+    marginBottom: 5,
     marginTop: 0,
     padding: '0 10px' // Add padding to prevent text touching edges
   },
@@ -49,15 +49,17 @@ export const styles = theme => ({
     letterSpacing: '0.1em',
     fontFamily: theme.typography.primary,
     textTransform: 'uppercase',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: 0,
+    marginBottom: 0
   },
   dayTabs: {
     display: 'flex',
     justifyContent: 'center',
     gap: 10,
-    marginBottom: 8,
+    marginBottom: 3,
     flexWrap: 'wrap',
-    marginTop: 0,
+    marginTop: 5,
     width: '100%' // Ensure tabs container is full width
   },
   dayTab: {
@@ -95,7 +97,7 @@ export const styles = theme => ({
     WebkitOverflowScrolling: 'touch',
     display: 'block', // Ensure block display
     position: 'relative', // Layout context
-    paddingTop: 80 // Add padding for first row tooltips
+    paddingTop: 27 // Add padding for first row tooltips
   },
   timeline: {
     minWidth: '100%',
