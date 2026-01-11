@@ -1528,7 +1528,7 @@
   }
   
   .modalInfoGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
 }
 
@@ -2056,8 +2056,9 @@
     right: 15px;
     /* Keep in top right for mobile */
     width: 44px;
+    height: 44px;
     padding: 0;
-    border-radius: 50%;
+    border-radius: 6px;
     clip-path: none;
     font-size: 24px;
   }
