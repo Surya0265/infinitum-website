@@ -40,7 +40,7 @@ export const eventsData = [
         "createdAt": { "$date": "2025-12-25T07:37:40.909Z" },
         "updatedAt": { "$date": "2025-12-25T07:37:40.909Z" },
         "__v": 0,
-        "image": "/images/events/questx.png"
+        "image": "/images/events/QuestX_website.png"
     },
 
     {
@@ -77,7 +77,7 @@ export const eventsData = [
         "createdAt": { "$date": "2025-12-25T07:37:54.049Z" },
         "updatedAt": { "$date": "2025-12-25T07:37:54.049Z" },
         "__v": 0,
-        "image": "/images/events/nexus.png"
+        "image": "/images/events/nexus_website.png"
     },
 
     {
@@ -120,7 +120,7 @@ export const eventsData = [
         "createdAt": { "$date": "2025-12-25T07:49:48.371Z" },
         "updatedAt": { "$date": "2025-12-25T07:49:48.371Z" },
         "__v": 0,
-        "image": "/images/events/gitwars.png"
+        "image": "/images/events/gitwars_Website.png"
     },
 
     {
@@ -258,7 +258,7 @@ export const eventsData = [
         "scheduleDay": "day2",
         "prizePool": "₹8,000",
         "teamSize": 1,
-        "image": "/images/events/codemania.png"
+        "image": "/images/events/codemania_website.png"
     },
 
     {

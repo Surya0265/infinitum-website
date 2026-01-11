@@ -1282,8 +1282,8 @@
   }
 
   .eventImage {
-    width: 220px;
-    height: 220px;
+    width: 240px;
+    height: 240px;
     /* Animation re-enabled implicitly by not overriding */
   }
 
@@ -1588,20 +1588,20 @@
     font-size: 1.6rem;
     text-align: left;
   }
-  
+
   .modalLabel {
     font-size: 0.7rem;
     text-align: left;
   }
-  
+
   .modalOneLiner {
     text-align: left;
   }
-  
+
   .modalDesc {
     text-align: left;
   }
-  
+
   .modalInfoGrid {
     grid-template-columns: 1fr !important;
   }
@@ -2147,11 +2147,11 @@
     padding: 14px 24px;
     font-size: 0.9rem;
   }
-  
+
   .modalSectionTitle {
     text-align: left;
   }
-  
+
   .modalRounds,
   .modalContacts {
     width: 100%;

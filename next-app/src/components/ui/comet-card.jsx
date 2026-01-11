@@ -165,31 +165,10 @@ export const CometCard = ({
         }}
         className="relative rounded-2xl"
       >
-        {/* Outer glow border - disabled */}
-        <div
-          className="absolute -inset-[2px] rounded-[18px]"
-          style={{
-            background: `linear-gradient(135deg, ${borderColor}, transparent 50%, ${glowColor})`,
-            filter: isHovered ? "blur(4px)" : "blur(2px)",
-            opacity: isHovered ? 0.6 : 0.35,
-            transition: "filter 0.3s ease, opacity 0.3s ease",
-          }}
-        />
-
-        {/* Border */}
-        <div
-          className="absolute -inset-[1px] rounded-[17px]"
-          style={{
-            background: `linear-gradient(135deg, ${borderColor}, rgba(255,255,255,0.15) 50%, ${borderColor})`,
-          }}
-        />
-
         {/* Content container */}
         <div className="relative rounded-2xl overflow-hidden" style={{ zIndex: 2 }}>
           {children}
         </div>
-
-        {/* Animated border pulse - REMOVED */}
       </motion.div>
 
       {/* Glare circle - REMOVED */}
