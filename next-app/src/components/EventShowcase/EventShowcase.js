@@ -130,7 +130,7 @@ export default function EventShowcase({ sounds, initialEventId }) {
                         ...w,
                         eventName: w.workshopName,
                         oneLineDescription: w.tagline || w.description || 'Technical Workshop',
-                        timing: w.time,
+                        timing: w.dateAndTime || w.time,
                         isWorkshop: true,
                         isFullDetailsLoaded: true,
                         // Ensure required fields like date are present
@@ -146,7 +146,7 @@ export default function EventShowcase({ sounds, initialEventId }) {
                         ...p,
                         eventName: p.eventName || "Paper Presentation",
                         oneLineDescription: p.tagline || p.theme || 'Paper Presentation',
-                        timing: p.time,
+                        timing: p.dateAndTime || p.time,
                         isPaper: true,
                         isFullDetailsLoaded: true,
                         // Ensure required fields
@@ -553,20 +553,20 @@ export default function EventShowcase({ sounds, initialEventId }) {
             <div className={styles.mainContent}>
                 {/* Left Stats Panel */}
                 <div className={styles.statsPanel}>
-                    {category === 'workshops' && currentEvent.contacts && currentEvent.contacts.length > 0 && (
+                    {category === 'workshops' && currentEvent.speakers && currentEvent.speakers.length > 0 && (
                         <div className={styles.contactsContainer}>
                             <div className={styles.statLabel}>Speakers</div>
-                            {currentEvent.contacts.map((contact, index) => (
-                                <div key={contact._id?.$oid || index} className={styles.speakerItem}>
-                                    <div className={styles.speakerName}>{contact.name}</div>
-                                    {contact.designation && (
-                                        <div className={styles.speakerDesignation}>{contact.designation}</div>
+                            {currentEvent.speakers.map((speaker, index) => (
+                                <div key={index} className={styles.speakerItem}>
+                                    <div className={styles.speakerName}>{speaker.name}</div>
+                                    {speaker.designation && (
+                                        <div className={styles.speakerDesignation}>{speaker.designation}</div>
                                     )}
                                 </div>
                             ))}
                         </div>
                     )}
-                    
+
                     {category !== 'workshops' && currentEvent.teamSize && (
                         <div className={styles.statItem}>
                             <div className={styles.statLabel}>Team Size</div>
@@ -736,10 +736,10 @@ export default function EventShowcase({ sounds, initialEventId }) {
 
                                 {/* Event Info Grid */}
                                 <div className={styles.modalInfoGrid}>
-                                    {category === 'workshops' && currentEvent.contacts && currentEvent.contacts.length > 0 && (
+                                    {category === 'workshops' && currentEvent.speakers && currentEvent.speakers.length > 0 && (
                                         <div className={styles.modalInfoItem}>
                                             <span className={styles.modalInfoLabel}>Speakers</span>
-                                            <span className={styles.modalInfoValue}>{currentEvent.contacts.length} Speaker{currentEvent.contacts.length > 1 ? 's' : ''}</span>
+                                            <span className={styles.modalInfoValue}>{currentEvent.speakers.length} Speaker{currentEvent.speakers.length > 1 ? 's' : ''}</span>
                                         </div>
                                     )}
                                     {(currentEvent.dateAndTime || currentEvent.timing) && (
@@ -786,10 +786,23 @@ export default function EventShowcase({ sounds, initialEventId }) {
                                     </div>
                                 )}
 
-                                {/* Contacts */}
+                                {/* Speakers Section in Modal */}
+                                {category === 'workshops' && currentEvent.speakers && currentEvent.speakers.length > 0 && (
+                                    <div className={styles.modalContacts}>
+                                        <h4 className={styles.modalSectionTitle}>Speakers</h4>
+                                        {currentEvent.speakers.map((speaker, index) => (
+                                            <div key={index} className={styles.modalContactItem} style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '2px' }}>
+                                                <span style={{ fontSize: '1.1em', fontWeight: '600' }}>{speaker.name}</span>
+                                                {speaker.designation && <span style={{ fontSize: '0.85rem', opacity: 0.8, marginTop: '2px' }}>{speaker.designation}</span>}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+
+                                {/* Contacts (Coordinators) */}
                                 {currentEvent.contacts && currentEvent.contacts.length > 0 && (
                                     <div className={styles.modalContacts}>
-                                        <h4 className={styles.modalSectionTitle}>{category === 'workshops' ? 'Speakers' : 'Coordinators'}</h4>
+                                        <h4 className={styles.modalSectionTitle}>Coordinators</h4>
                                         {currentEvent.contacts.map((contact, index) => (
                                             <div key={contact._id?.$oid || index} className={styles.modalContactItem}>
                                                 <span>{contact.name}</span>
@@ -810,7 +823,7 @@ export default function EventShowcase({ sounds, initialEventId }) {
                                             background: currentEvent.isRegistered ? 'transparent' : undefined,
                                             borderColor: currentEvent.isRegistered ? '#9E9E9E' : undefined,
                                             color: currentEvent.isRegistered ? '#B0B0B0' : undefined,
-                                        boxShadow: currentEvent.isRegistered ? '0 0 15px rgba(176, 176, 176, 0.3)' : undefined,
+                                            boxShadow: currentEvent.isRegistered ? '0 0 15px rgba(176, 176, 176, 0.3)' : undefined,
                                             boxShadow: currentEvent.isRegistered ? 'none' : undefined,
                                         }}
                                     >

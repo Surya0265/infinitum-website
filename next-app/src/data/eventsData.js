@@ -26,7 +26,7 @@ export const eventsData = [
             { "name": "Neelesh Padmanabh", "mobile": "8148401083", "_id": { "$oid": "694ce9c4297836cde7682482" } },
             { "name": "Atul Vasanthakrishnan", "mobile": "9345722948", "_id": { "$oid": "694ce9c4297836cde7682483" } }
         ],
-        "hall": "Q Block Classrooms",
+        "hall": "Q block Classrooms",
         "eventRules": "Participants must follow organiser instructions and maintain sportsmanship throughout the event.",
         "teamSize": 4,
         "prizePool": "₹5,000",
@@ -69,9 +69,9 @@ export const eventsData = [
         "prizePool": "₹3,000",
         "date": { "$date": "2026-02-01T09:00:00.000Z" },
         "closed": false,
-        "dateAndTime": "Feb 14, 9:00 AM – 2:00 PM",
+        "dateAndTime": "Feb 14, 9:00 AM – 12:30 PM",
         "scheduleStart": "09:00",
-        "scheduleEnd": "15:00",
+        "scheduleEnd": "12:30",
         "scheduleDay": "day2",
         "youtubeUrl": "",
         "createdAt": { "$date": "2025-12-25T07:37:54.049Z" },
@@ -106,15 +106,15 @@ export const eventsData = [
             { "name": "Srimathikalpana T", "mobile": "8122966128", "_id": { "$oid": "694cec9c297836cde7682493" } },
             { "name": "Suryaprakash B", "mobile": "7339143171", "_id": { "$oid": "694cec9c297836cde7682494" } }
         ],
-        "hall": "G Block Classrooms",
+        "hall": "G block Classrooms",
         "eventRules": "Teams must follow organiser instructions. Judging is based on accuracy, time, creativity, team synergy, and effective use of advantages. Organisers' decisions are final.",
         "teamSize": 3,
         "prizePool": "₹4,000",
         "date": { "$date": "2026-02-01T09:00:00.000Z" },
         "closed": false,
-        "dateAndTime": "Feb 14, 9:00 AM – 2:00 PM",
+        "dateAndTime": "Feb 14, 9:00 AM – 12:30 PM",
         "scheduleStart": "09:00",
-        "scheduleEnd": "14:00",
+        "scheduleEnd": "12:30",
         "scheduleDay": "day2",
         "youtubeUrl": "",
         "createdAt": { "$date": "2025-12-25T07:49:48.371Z" },
@@ -155,9 +155,9 @@ export const eventsData = [
         "prizePool": "₹10,000",
         "date": { "$date": "2026-02-01T09:00:00.000Z" },
         "closed": false,
-        "dateAndTime": "Feb 13, 10:00 AM – 1:00 PM",
+        "dateAndTime": "Feb 13, 10:00 AM – 12:30 PM",
         "scheduleStart": "10:00",
-        "scheduleEnd": "16:00",
+        "scheduleEnd": "12:30",
         "scheduleDay": "day1",
         "youtubeUrl": "",
         "createdAt": { "$date": "2025-12-25T07:49:58.495Z" },
@@ -200,12 +200,12 @@ export const eventsData = [
                 "_id": { "$oid": "694ced34297836cde76824a8" }
             }
         ],
-        "hall": "D Block",
+        "hall": "D Block Conference Hall",
         "eventRules": "Participants must follow organiser instructions at all times. Fair play and integrity are mandatory. Organisers’ decisions are final.",
         "teamSize": 3,
         "date": { "$date": "2026-02-01T09:00:00.000Z" },
         "closed": false,
-        "dateAndTime": "Feb 13, 1:45 PM – 4:00 PM",
+        "dateAndTime": "Feb 13, 1:30 PM – 4:00 PM",
 
         "image": "/images/events/infinitumopenquiz.png"
     },
@@ -248,7 +248,7 @@ export const eventsData = [
                 }
             }
         ],
-        "hall": "GRD and Programming Labs",
+        "hall": "GRD Lab and Programming Lab - I",
         "eventRules": "Individual participation only. Follow coding standards. Organisers' decisions are final.",
         "date": { "$date": "2026-02-01T09:00:00.000Z" },
         "closed": false,
@@ -298,7 +298,7 @@ export const eventsData = [
         "contacts": [
             { "name": "Hackathon Organizer", "mobile": "9876543212", "_id": { "$oid": "695a3d878baa56af32706890" } }
         ],
-        "hall": "CC Lab",
+        "hall": "Computer Center",
         "eventRules": "Follow all guidelines. Plagiarism leads to disqualification. Organisers' decisions are final.",
         "date": { "$date": "2026-02-01T09:00:00.000Z" },
         "closed": false,
@@ -324,34 +324,39 @@ export const workshopsData = [
         },
         "workshopName": "AI Infrastructure: From Big Picture to Everyday Reality",
         "date": {
-            "$date": "2026-03-15T00:00:00.000Z"
+            "$date": "2026-02-13T09:00:00.000Z"
         },
         "tagline": "Understanding AI Infrastructure - From Big Picture to Everyday Reality",
-        "hall": "Computer Lab 1",
-        "time": "2:00 PM - 5:00 PM",
-        "contacts": [
+        "hall": "SCPS Lab",
+        "time": "10:00 AM - 4:00 PM",
+        "dateAndTime": "Feb 13, 10:00 AM - 4:00 PM",
+        "speakers": [
             {
                 "name": "Supriya Rajamanickam",
-                "designation": "Senior Technical Leader, Cisco Systems",
-                "mobile": "9876543210",
+                "designation": "Senior Technical Leader, Cisco Systems"
+            },
+            {
+                "name": "Balasankar Raman",
+                "designation": "Principal Engineer, Cisco Systems"
+            },
+            {
+                "name": "Shankar Gopalkrishnan",
+                "designation": "Principal Engineer, Cisco Systems"
+            }
+        ],
+        "contacts": [
+            {
+                "name": "Nivashini",
+                "mobile": "9488091237",
                 "_id": {
                     "$oid": "695a4c2a8baa56af3270689b"
                 }
             },
             {
-                "name": "Balasankar Raman",
-                "designation": "Principal Engineer, Cisco Systems",
-                "mobile": "9123456780",
+                "name": "Logavarshini",
+                "mobile": "6380031439",
                 "_id": {
                     "$oid": "695a4c2a8baa56af3270689c"
-                }
-            },
-            {
-                "name": "Shankar Gopalkrishnan",
-                "designation": "Principal Engineer, Cisco Systems",
-                "mobile": "9876543211",
-                "_id": {
-                    "$oid": "695a4c2a8baa56af3270689d"
                 }
             }
         ],
@@ -392,6 +397,58 @@ export const workshopsData = [
         },
         "__v": 0,
         "image": "/images/circadian-algorithm.jpg"
+    },
+    {
+        "workshopId": "WS02",
+        "alteredFee": 400,
+        "actualFee": 500,
+        "club_id": { "$oid": "69495a6a719d1b3bd5a9e7cd" },
+        "workshopName": "Machine Learning Fundamentals",
+        "date": { "$date": "2026-02-14T09:00:00.000Z" },
+        "tagline": "Master the basics of ML",
+        "hall": "AIR Lab",
+        "time": "9:00 AM - 3:00 PM",
+        "dateAndTime": "Feb 14, 9:00 AM - 3:00 PM",
+        "contacts": [
+            { "name": "Coordinator 1", "mobile": "9876543210", "_id": { "$oid": "dummy_oid_1" } }
+        ],
+        "maxCount": 50,
+        "description": "A comprehensive workshop on Machine Learning Fundamentals. Learn core concepts and practical applications.",
+        "agenda": [],
+        "earlyBirdActive": true,
+        "closed": false,
+        "prerequisites": "Laptop",
+        "youtubeUrl": "",
+        "createdAt": { "$date": "2026-01-04T11:16:58.576Z" },
+        "updatedAt": { "$date": "2026-01-04T11:16:58.576Z" },
+        "__v": 0,
+        "image": "/images/circadian-algorithm.jpg"
+    },
+    {
+        "workshopId": "WS03",
+        "alteredFee": 400,
+        "actualFee": 500,
+        "club_id": { "$oid": "69495a6a719d1b3bd5a9e7cd" },
+        "workshopName": "Threat Detection Modelling",
+        "date": { "$date": "2026-02-14T09:00:00.000Z" },
+        "tagline": "Advanced Threat Detection Techniques",
+        "hall": "SCPS Lab",
+        "time": "9:00 AM - 3:00 PM",
+        "dateAndTime": "Feb 14, 9:00 AM - 3:00 PM",
+        "contacts": [
+            { "name": "Coordinator 1", "mobile": "9876543210", "_id": { "$oid": "dummy_oid_2" } }
+        ],
+        "maxCount": 50,
+        "description": "Learn about threat detection modelling and cybersecurity defense strategies.",
+        "agenda": [],
+        "earlyBirdActive": true,
+        "closed": false,
+        "prerequisites": "Laptop",
+        "youtubeUrl": "",
+        "createdAt": { "$date": "2026-01-04T11:16:58.576Z" },
+        "updatedAt": { "$date": "2026-01-04T11:16:58.576Z" },
+        "__v": 0,
+        "image": "/images/circadian-algorithm.jpg"
     }
 ];
 
@@ -399,7 +456,7 @@ export const workshopsData = [
 export const papersData = [
     {
         "paperId": "PRP03",
-        "eventName": "AI and Machine Learning Research Symposium",
+        "eventName": "AI and Emerging Trends",
         "contacts": [
             {
                 "name": "Dr. John Smith",
@@ -422,14 +479,15 @@ export const papersData = [
         "topic": "Recent advances in deep learning, neural networks, and AI applications in real-world scenarios",
         "rules": "1. Each team must submit an abstract by the deadline\n2. Maximum team size is 3 members\n3. Presentation duration: 15 minutes\n4. Q&A session: 5 minutes",
         "date": {
-            "$date": "2026-02-15T00:00:00.000Z"
+            "$date": "2026-02-14T09:00:00.000Z"
         },
-        "time": "10:00 AM - 5:00 PM",
+        "time": "10:00 AM - 12:30 PM",
+        "dateAndTime": "Feb 14, 10:00 AM - 12:30 PM",
         "deadline": {
             "$date": "2026-02-01T00:00:00.000Z"
         },
         "teamSize": 3,
-        "hall": "Seminar Hall A",
+        "hall": "Department Seminar Hall - CSE",
         "closed": false,
         "youtubeUrl": "https://www.youtube.com/watch?v=example",
         "club_id": {
