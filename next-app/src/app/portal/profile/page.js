@@ -868,7 +868,7 @@ class ProfilePage extends React.Component {
 
     fetchRegisteredEvents = async () => {
         try {
-            const response = await api.get('/api/events/user');
+            const response = await api.get('/api/events/registrations');
             const data = response.data;
 
             let events = [];

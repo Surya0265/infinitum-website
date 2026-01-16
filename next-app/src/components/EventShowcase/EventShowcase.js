@@ -166,6 +166,7 @@ export default function EventShowcase({ sounds, initialEventId }) {
                         let registeredIds = [];
                         if (category === 'events') {
                             const res = await eventService.getUserEvents();
+                            console.log(res);
                             const list = Array.isArray(res) ? res : (res.events || res.data || []);
                             registeredIds = list.map(e => e.eventId);
                         } else if (category === 'workshops') {
@@ -518,9 +519,9 @@ export default function EventShowcase({ sounds, initialEventId }) {
                         style={{
                             background: currentEvent.isRegistered ? 'transparent' : undefined,
                             cursor: currentEvent.isRegistered ? 'default' : 'pointer',
-                            borderColor: currentEvent.isRegistered ? '#9E9E9E' : undefined,
-                            color: currentEvent.isRegistered ? '#B0B0B0' : undefined,
-                            boxShadow: currentEvent.isRegistered ? '0 0 15px rgba(176, 176, 176, 0.3)' : undefined,
+                            borderColor: currentEvent.isRegistered ? '#00E676' : undefined,
+                            color: currentEvent.isRegistered ? '#00E676' : undefined,
+                            boxShadow: currentEvent.isRegistered ? 'none' : undefined,
                         }}
                     >
                         <span>
