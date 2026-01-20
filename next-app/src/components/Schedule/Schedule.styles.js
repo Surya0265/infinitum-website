@@ -243,13 +243,15 @@ export const styles = theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    lineHeight: 1.2,
+    lineHeight: 1.35, // Increased line height for descenders
+    paddingBottom: 2, // Extra space for 'g', 'j', 'y'
     textShadow: '0 1px 3px rgba(255,255,255,0.5)',
     position: 'relative',
     paddingRight: 0,
     maxWidth: '100%',
     display: 'block'
   },
+
   eventTime: {
     fontSize: '0.65rem',
     color: 'rgba(0,0,0,0.75)',
@@ -354,9 +356,9 @@ export const styles = theme => ({
 
   // Neon Color Variants with Gradients and Glows
   general: {
-    background: 'linear-gradient(135deg, #FF1E64 0%, #D81552 100%)', // Neon Pink
-    boxShadow: '0 0 15px rgba(255, 30, 100, 0.4)',
-    '&:hover': { boxShadow: '0 0 25px rgba(255, 30, 100, 0.6)' }
+    background: 'linear-gradient(135deg, #FFD700 0%, #FFA000 100%)', // Gold (Same as Awards)
+    boxShadow: '0 0 15px rgba(255, 215, 0, 0.4)',
+    '&:hover': { boxShadow: '0 0 25px rgba(255, 215, 0, 0.6)' }
   },
   flagship: {
     background: 'linear-gradient(135deg, #FF6B00 0%, #FF8C00 100%)', // Bright Orange/Gold
@@ -369,10 +371,20 @@ export const styles = theme => ({
     boxShadow: '0 0 15px rgba(0, 229, 255, 0.4)',
     '&:hover': { boxShadow: '0 0 25px rgba(0, 229, 255, 0.6)' }
   },
+  technical: {
+    background: 'linear-gradient(135deg, #00E5FF 0%, #00B8D4 100%)', // Cyan (Same as old competition)
+    boxShadow: '0 0 15px rgba(0, 229, 255, 0.4)',
+    '&:hover': { boxShadow: '0 0 25px rgba(0, 229, 255, 0.6)' }
+  },
+  nontechnical: {
+    background: 'linear-gradient(135deg, #E91E63 0%, #C2185B 100%)', // Brand Pink
+    boxShadow: '0 0 15px rgba(233, 30, 99, 0.4)',
+    '&:hover': { boxShadow: '0 0 25px rgba(233, 30, 99, 0.6)' }
+  },
   workshop: {
-    background: 'linear-gradient(135deg, #FFEA00 0%, #FFD600 100%)', // Electric Yellow
-    boxShadow: '0 0 15px rgba(255, 234, 0, 0.4)',
-    '&:hover': { boxShadow: '0 0 25px rgba(255, 234, 0, 0.6)' }
+    background: 'linear-gradient(135deg, #FFD600 0%, #FFC107 100%)', // Slightly Darker/Richer Yellow
+    boxShadow: '0 0 15px rgba(255, 214, 0, 0.4)',
+    '&:hover': { boxShadow: '0 0 25px rgba(255, 214, 0, 0.6)' }
   },
   talk: {
     background: 'linear-gradient(135deg, #D500F9 0%, #AA00FF 100%)', // Neon Purple

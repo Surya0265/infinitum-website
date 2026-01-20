@@ -396,24 +396,30 @@ export const workshopsData = [
             "$date": "2026-01-04T11:16:58.576Z"
         },
         "__v": 0,
-        "image": "/images/circadian-algorithm.jpg"
+        "image": "/images/events/ai_infrastructure.png"
     },
     {
         "workshopId": "WS02",
         "alteredFee": 400,
         "actualFee": 500,
         "club_id": { "$oid": "69495a6a719d1b3bd5a9e7cd" },
-        "workshopName": "Machine Learning Fundamentals",
+        "workshopName": "Product Prototyping for Industry Applications",
         "date": { "$date": "2026-02-14T09:00:00.000Z" },
-        "tagline": "Master the basics of ML",
+        "tagline": "Build Industry-Ready Prototypes",
         "hall": "AIR Lab",
         "time": "9:00 AM - 3:00 PM",
         "dateAndTime": "Feb 14, 9:00 AM - 3:00 PM",
+        "speakers": [
+            {
+                "name": "Senthilkumar S",
+                "designation": "Founder CEO - Open Netrikkan Pvt Ltd"
+            }
+        ],
         "contacts": [
             { "name": "Coordinator 1", "mobile": "9876543210", "_id": { "$oid": "dummy_oid_1" } }
         ],
         "maxCount": 50,
-        "description": "A comprehensive workshop on Machine Learning Fundamentals. Learn core concepts and practical applications.",
+        "description": "A comprehensive workshop on Product Prototyping for Industry Applications.",
         "agenda": [],
         "earlyBirdActive": true,
         "closed": false,
@@ -422,7 +428,7 @@ export const workshopsData = [
         "createdAt": { "$date": "2026-01-04T11:16:58.576Z" },
         "updatedAt": { "$date": "2026-01-04T11:16:58.576Z" },
         "__v": 0,
-        "image": "/images/circadian-algorithm.jpg"
+        "image": "/images/events/product_prototyping.png"
     },
     {
         "workshopId": "WS03",
@@ -431,10 +437,16 @@ export const workshopsData = [
         "club_id": { "$oid": "69495a6a719d1b3bd5a9e7cd" },
         "workshopName": "Threat Detection Modelling",
         "date": { "$date": "2026-02-14T09:00:00.000Z" },
-        "tagline": "Advanced Threat Detection Techniques",
+        "tagline": "Master Cybersecurity Defense Strategies",
         "hall": "SCPS Lab",
         "time": "9:00 AM - 3:00 PM",
         "dateAndTime": "Feb 14, 9:00 AM - 3:00 PM",
+        "speakers": [
+            {
+                "name": "Priyanka Raghavan",
+                "designation": "Co-Founder - Securacy.ai"
+            }
+        ],
         "contacts": [
             { "name": "Coordinator 1", "mobile": "9876543210", "_id": { "$oid": "dummy_oid_2" } }
         ],
@@ -448,7 +460,7 @@ export const workshopsData = [
         "createdAt": { "$date": "2026-01-04T11:16:58.576Z" },
         "updatedAt": { "$date": "2026-01-04T11:16:58.576Z" },
         "__v": 0,
-        "image": "/images/circadian-algorithm.jpg"
+        "image": "/images/events/threat_detection.png"
     }
 ];
 

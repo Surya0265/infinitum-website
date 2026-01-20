@@ -519,8 +519,8 @@ export default function EventShowcase({ sounds, initialEventId }) {
                         style={{
                             background: currentEvent.isRegistered ? 'transparent' : undefined,
                             cursor: currentEvent.isRegistered ? 'default' : 'pointer',
-                            borderColor: currentEvent.isRegistered ? '#00E676' : undefined,
-                            color: currentEvent.isRegistered ? '#00E676' : undefined,
+                            borderColor: currentEvent.isRegistered ? '#B0B0B0' : undefined,
+                            color: currentEvent.isRegistered ? '#B0B0B0' : undefined,
                             boxShadow: currentEvent.isRegistered ? 'none' : undefined,
                         }}
                     >
@@ -1016,15 +1016,15 @@ export default function EventShowcase({ sounds, initialEventId }) {
                     </div>
                 </div>
             )}
-            {/* Preload images for smoother transitions */}
+            {/* Preload images for smoother transitions - All Categories */}
             <div style={{ display: 'none' }} aria-hidden="true">
+                {/* Preload current category events */}
                 {events.map((event, index) => {
                     const img = event.image || DEFAULT_EVENT_IMAGE;
-                    // Skip if no image or if it's the current active event (already loaded)
                     if (!img || index === activeEventIndex) return null;
                     return (
                         <Image
-                            key={`preload-${event.eventId || event.workshopId || event.paperId || index}`}
+                            key={`preload-current-${event.eventId || event.workshopId || event.paperId || index}`}
                             src={img}
                             alt=""
                             width={400}
@@ -1033,6 +1033,40 @@ export default function EventShowcase({ sounds, initialEventId }) {
                             unoptimized={false}
                         />
                     );
+                })}
+                {/* Preload Workshops */}
+                {workshopsData.map((w, index) => {
+                    // Avoid duplicating if already in 'events' (which it won't be, but good to be safe if Logic changes)
+                    // Only preload if not currently viewing workshops (otherwise above loop handles it)
+                    if (category === 'workshops') return null;
+                    const img = w.image || DEFAULT_EVENT_IMAGE;
+                    return (
+                        <Image
+                            key={`preload-workshop-${w.workshopId || index}`}
+                            src={img}
+                            alt=""
+                            width={400}
+                            height={400}
+                            loading="lazy" // Use lazy for non-critical, or eager if user wants INSTANT switch
+                            unoptimized={false}
+                        />
+                    )
+                })}
+                {/* Preload Papers */}
+                {papersData.map((p, index) => {
+                    if (category === 'papers') return null;
+                    const img = p.image || DEFAULT_EVENT_IMAGE;
+                    return (
+                        <Image
+                            key={`preload-paper-${p.paperId || index}`}
+                            src={img}
+                            alt=""
+                            width={400}
+                            height={400}
+                            loading="lazy"
+                            unoptimized={false}
+                        />
+                    )
                 })}
             </div>
         </div>
