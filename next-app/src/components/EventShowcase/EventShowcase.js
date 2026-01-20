@@ -729,9 +729,10 @@ export default function EventShowcase({ sounds, initialEventId }) {
                                     width={350}
                                     height={350}
                                     className={styles.modalPoster}
-                                    unoptimized
                                     loading="eager"
                                     priority
+                                    placeholder="blur"
+                                    blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzUwIiBoZWlnaHQ9IjM1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMWEwMjBiIi8+PC9zdmc+"
                                 />
                             </div>
                             <div className={styles.modalInfo}>
