@@ -624,7 +624,6 @@
   z-index: 3;
   width: 400px;
   height: 400px;
-  animation: float-rotate 8s ease-in-out infinite;
   transition: opacity 0.3s ease-in-out;
   opacity: 1;
 }
@@ -637,6 +636,7 @@
   image-rendering: high-quality;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  border-radius: 1rem;
 }
 
 /* CometCard wrapper for event image */
