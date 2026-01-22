@@ -40,8 +40,7 @@ export const eventsData = [
         "createdAt": { "$date": "2025-12-25T07:37:40.909Z" },
         "updatedAt": { "$date": "2025-12-25T07:37:40.909Z" },
         "__v": 0,
-        "image": "https://kriyabackend.psgtech.ac.in/inf/api/auth/files/EVENT_2c8f2db4.png",
-        "localImage": "/images/events/QuestX_website.png"
+        "image": "/images/events/QuestX_website.png"
     },
 
     {
@@ -78,8 +77,7 @@ export const eventsData = [
         "createdAt": { "$date": "2025-12-25T07:37:54.049Z" },
         "updatedAt": { "$date": "2025-12-25T07:37:54.049Z" },
         "__v": 0,
-        "image": "https://kriyabackend.psgtech.ac.in/inf/api/auth/files/EVENT_baae62fd.png",
-        "localImage": "/images/events/nexus_website.png"
+        "image": "/images/events/nexus_website.png"
     },
 
     {
@@ -122,8 +120,7 @@ export const eventsData = [
         "createdAt": { "$date": "2025-12-25T07:49:48.371Z" },
         "updatedAt": { "$date": "2025-12-25T07:49:48.371Z" },
         "__v": 0,
-        "image": "https://kriyabackend.psgtech.ac.in/inf/api/auth/files/EVENT_7cc7a780.png",
-        "localImage": "/images/events/gitwars_Website.png"
+        "image": "/images/events/gitwars_Website.png"
     },
 
     {
@@ -166,8 +163,7 @@ export const eventsData = [
         "createdAt": { "$date": "2025-12-25T07:49:58.495Z" },
         "updatedAt": { "$date": "2025-12-25T07:49:58.495Z" },
         "__v": 0,
-        "image": "https://kriyabackend.psgtech.ac.in/inf/api/auth/files/EVENT_89c8b08c.png",
-        "localImage": "/images/events/forcecoders.png"
+        "image": "/images/events/forcecoders.png"
     },
 
     {
@@ -211,8 +207,7 @@ export const eventsData = [
         "closed": false,
         "dateAndTime": "Feb 13, 10:00 AM – 12:30 PM",
 
-        "image": "https://kriyabackend.psgtech.ac.in/inf/api/auth/files/EVENT_e202072d.png",
-        "localImage": "/images/events/infinitumopenquiz.png"
+        "image": "/images/events/infinitumopenquiz.png"
     },
 
     {
@@ -263,8 +258,7 @@ export const eventsData = [
         "scheduleDay": "day2",
         "prizePool": "₹8,000",
         "teamSize": 1,
-        "image": "https://kriyabackend.psgtech.ac.in/inf/api/auth/files/EVENT_5e7aefef.png",
-        "localImage": "/images/events/codemania_website.png"
+        "image": "/images/events/codemania_website.png"
     },
 
     {
@@ -314,8 +308,7 @@ export const eventsData = [
         "scheduleDay": "day1",
         "prizePool": "₹25,000",
         "teamSize": 4,
-        "image": "https://kriyabackend.psgtech.ac.in/inf/api/auth/files/EVENT_bccce050.png",
-        "localImage": "/images/events/paper_presentation.png"
+        "image": "/images/events/paper_presentation.png"
     }
 ]
 
@@ -329,7 +322,7 @@ export const workshopsData = [
         "club_id": {
             "$oid": "69495a6a719d1b3bd5a9e7cd"
         },
-        "workshopName": "AI Infrastructure\u2060: From Big Picture to Everyday Reality",
+        "workshopName": "AI Infrastructure: From Big Picture to Everyday Reality",
         "date": {
             "$date": "2026-02-13T09:00:00.000Z"
         },
