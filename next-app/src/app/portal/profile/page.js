@@ -113,26 +113,76 @@ class IdentityNode extends React.Component {
 
         // --- GAMIFICATION LOGIC FROM DATA ---
         const { user } = this.props;
-
-        // COLOR: Payment Status (Cyan = Paid/Online, Red = Unpaid/Locked)
-        const baseColorHex = user.generalFeePaid ? 0x00f0ff : 0xff0055;
-
-        // COMPLEXITY/SPEED: Year (Fallback to 1 if not present)
         const year = user.year || 1;
-        this.speedMultiplier = 0.5 + (year * 0.2); // Faster for seniors
-
-        // SHAPE: Origin (PSG = Core/Organic, External = Prism/Sharp)
         const isInternal = user.isPSGStudent;
+        const isPaid = user.generalFeePaid;
+
+        let baseColorHex, innerGeometry, outerGeometry;
+        this.speedMultiplier = 0.5 + (year * 0.2); // Base speed
+
+        switch (year) {
+            case 1: // Freshman: Simple, foundational shapes
+                baseColorHex = isPaid ? 0x00f0ff : 0xff0055; // Cyan / Red
+                innerGeometry = isInternal ? new THREE.BoxGeometry(1.5, 1.5, 1.5) : new THREE.TetrahedronGeometry(1.4, 0);
+                outerGeometry = new THREE.BoxGeometry(2.2, 2.2, 2.2);
+                this.speedMultiplier = 0.6;
+                break;
+            case 2: // Sophomore: More complex, developing
+                baseColorHex = isPaid ? 0x00ff88 : 0xff6b35; // Green / Orange
+                innerGeometry = isInternal ? new THREE.OctahedronGeometry(1.3, 0) : new THREE.ConeGeometry(1, 2, 4);
+                outerGeometry = new THREE.OctahedronGeometry(2.0, 1);
+                this.speedMultiplier = 0.8;
+                break;
+            case 3: // Junior: Established, intricate
+                baseColorHex = isPaid ? 0xffff00 : 0xff44ff; // Yellow / Magenta
+                innerGeometry = isInternal ? new THREE.IcosahedronGeometry(1.2, 0) : new THREE.TorusKnotGeometry(0.8, 0.3, 100, 8);
+                outerGeometry = new THREE.IcosahedronGeometry(1.8, 1);
+                this.speedMultiplier = 1.0;
+                // Add a single ring for juniors
+                const ringGeometry = new THREE.TorusGeometry(2.8, 0.02, 16, 100);
+                const ringMaterial = new THREE.MeshBasicMaterial({ color: baseColorHex, transparent: true, opacity: 0.6 });
+                this.ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
+                this.scene.add(this.ringMesh);
+                break;
+            case 4: // Senior: Advanced, refined
+                baseColorHex = isPaid ? 0xff8c00 : 0x9400d3; // Orange / Dark Violet
+                innerGeometry = isInternal ? new THREE.DodecahedronGeometry(1.4, 0) : new THREE.CylinderGeometry(1, 1, 2, 6);
+                outerGeometry = new THREE.DodecahedronGeometry(2.2, 1);
+                this.speedMultiplier = 1.2;
+                // Add two rings for seniors
+                const ring1 = new THREE.TorusGeometry(2.8, 0.02, 16, 100);
+                const ring2 = new THREE.TorusGeometry(3.1, 0.02, 16, 100);
+                const ringMat = new THREE.MeshBasicMaterial({ color: baseColorHex, transparent: true, opacity: 0.7 });
+                this.ringMesh = new THREE.Mesh(ring1, ringMat);
+                this.ringMesh2 = new THREE.Mesh(ring2, ringMat);
+                this.scene.add(this.ringMesh);
+                this.scene.add(this.ringMesh2);
+                break;
+            case 5: // Post-grad/Master: Mastered, complex & stable
+            default:
+                baseColorHex = isPaid ? 0xffffff : 0xaaaaaa; // White / Grey
+                innerGeometry = isInternal ? new THREE.TorusKnotGeometry(1, 0.2, 128, 16) : new THREE.SphereGeometry(1.2, 32, 16);
+                outerGeometry = new THREE.SphereGeometry(2.5, 64, 32);
+                this.speedMultiplier = 1.4;
+                // Three rings for masters
+                const mRing1 = new THREE.TorusGeometry(2.8, 0.03, 16, 100);
+                const mRing2 = new THREE.TorusGeometry(3.2, 0.02, 16, 100);
+                const mRing3 = new THREE.TorusGeometry(3.5, 0.01, 16, 100);
+                const mRingMat = new THREE.MeshBasicMaterial({ color: baseColorHex, transparent: true, opacity: 0.8 });
+                this.ringMesh = new THREE.Mesh(mRing1, mRingMat);
+                this.ringMesh2 = new THREE.Mesh(mRing2, mRingMat);
+                this.ringMesh3 = new THREE.Mesh(mRing3, mRingMat);
+                this.scene.add(this.ringMesh);
+                this.scene.add(this.ringMesh2);
+                this.scene.add(this.ringMesh3);
+                break;
+        }
 
         // 3. Objects Group
         this.coreGroup = new THREE.Group();
         this.scene.add(this.coreGroup);
 
         // A. INNER CORE (The Identity)
-        const innerGeometry = isInternal
-            ? new THREE.IcosahedronGeometry(1.2, 1) // Organic D20 look
-            : new THREE.OctahedronGeometry(1.2, 0); // Sharp Diamond look
-
         const innerMaterial = new THREE.MeshBasicMaterial({
             color: baseColorHex,
             wireframe: true,
@@ -143,7 +193,6 @@ class IdentityNode extends React.Component {
         this.coreGroup.add(this.innerMesh);
 
         // B. OUTER SHELL (The Shield)
-        const outerGeometry = new THREE.IcosahedronGeometry(1.8, 1);
         const outerMaterial = new THREE.MeshBasicMaterial({
             color: baseColorHex,
             wireframe: true,
@@ -153,18 +202,7 @@ class IdentityNode extends React.Component {
         this.outerMesh = new THREE.Mesh(outerGeometry, outerMaterial);
         this.coreGroup.add(this.outerMesh);
 
-        // C. SENIOR RING (Rank Indicator - Only for Year 3+)
-        if (year >= 3) {
-            const ringGeometry = new THREE.TorusGeometry(2.8, 0.02, 16, 100);
-            const ringMaterial = new THREE.MeshBasicMaterial({
-                color: baseColorHex,
-                transparent: true,
-                opacity: 0.6
-            });
-            this.ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
-            // Add to scene directly so it rotates independently
-            this.scene.add(this.ringMesh);
-        }
+        // C. SENIOR RING (Rank Indicator - Only for Year 3+) - Logic moved to switch case
 
         // D. LIGHTING (Glow Effect)
         const pointLight = new THREE.PointLight(baseColorHex, user.generalFeePaid ? 2 : 0.8, 10);
@@ -209,6 +247,14 @@ class IdentityNode extends React.Component {
         if (this.ringMesh) {
             this.ringMesh.rotation.x = Math.PI / 2 + (Math.sin(time * 0.5) * 0.1);
             this.ringMesh.rotation.y = time * 0.3;
+        }
+        if (this.ringMesh2) {
+            this.ringMesh2.rotation.x = Math.PI / 2 + (Math.cos(time * 0.4) * 0.15);
+            this.ringMesh2.rotation.y = -time * 0.2;
+        }
+        if (this.ringMesh3) {
+            this.ringMesh3.rotation.x = Math.PI / 2 + (Math.sin(time * 0.3) * 0.2);
+            this.ringMesh3.rotation.y = time * 0.1;
         }
 
         // Gentle float of the whole group
