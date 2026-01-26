@@ -1119,6 +1119,7 @@ class ProfilePage extends React.Component {
             accommodationSubmitting: false,
             accommodationError: null,
             accommodationSuccess: false, // Success popup state
+            showFeeReminder: false, // Reminder state (initially hidden)
         };
         this.fileInputRef = React.createRef();
     }
@@ -1128,19 +1129,31 @@ class ProfilePage extends React.Component {
         this.setState(prev => ({ isQRExpanded: !prev.isQRExpanded }));
     }
 
+    checkMobile = () => {
+        this.setState({ isMobile: window.innerWidth <= 960 });
+    };
+
     componentDidMount() {
         // Set initial tab from URL query param (passed via props)
         if (this.props.initialTab) {
             this.setState({ activeTab: this.props.initialTab });
         }
         this.checkAuth();
-        const checkMobile = () => this.setState({ isMobile: window.innerWidth <= 960 });
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
+
+        this.checkMobile();
+        window.addEventListener('resize', this.checkMobile);
+
+        // Show reminder after 3 seconds
+        this.reminderTimer = setTimeout(() => {
+            this.setState({ showFeeReminder: true });
+        }, 3000);
     }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.checkMobile);
+        if (this.reminderTimer) {
+            clearTimeout(this.reminderTimer);
+        }
     }
 
     checkAuth = async () => {
@@ -2104,6 +2117,72 @@ class ProfilePage extends React.Component {
                                 </button>
                             </div>
                         </div>
+                    )}
+
+                    {/* REMINDERS (Fee & ID Card) */}
+                    {!loading && user && this.state.showFeeReminder && activeTab === 'profile' && (
+                        <>
+                            {/* 1. General Fee Reminder (Priority for non-PSG students) */}
+                            {!user.isPSGStudent && !user.generalFeePaid && (
+                                <div className={classes.idViewerOverlay} onClick={() => this.setState({ showFeeReminder: false })}>
+                                    <div className={classes.successPopup} onClick={(e) => e.stopPropagation()} style={{ borderColor: '#fae127', boxShadow: '0 0 30px rgba(250, 225, 39, 0.2)' }}>
+                                        <div className={classes.successIcon} style={{ background: 'rgba(250, 225, 39, 0.2)', color: '#fae127', border: '2px solid #fae127' }}>!</div>
+                                        <div className={classes.successTitle} style={{ color: '#fff' }}>General Fee Pending</div>
+                                        <div className={classes.successMessage} style={{ marginBottom: '20px' }}>
+                                            Please complete the general fee payment to register for events and paper presentations.
+                                        </div>
+                                        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+                                            <button
+                                                className={classes.successBtn}
+                                                onClick={() => window.location.href = '/fee-payment'}
+                                                style={{ background: 'linear-gradient(135deg, #fae127, #f0ca00)', color: '#000', fontWeight: 'bold' }}
+                                            >
+                                                Pay Now
+                                            </button>
+                                            <button
+                                                className={classes.successBtn}
+                                                onClick={() => this.setState({ showFeeReminder: false })}
+                                                style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.3)', color: '#fff' }}
+                                            >
+                                                Later
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* 2. ID Card Upload Reminder (If fee cleared/exempt but no ID uploaded) */}
+                            {((user.isPSGStudent || user.generalFeePaid) && !user.idCardUploaded) && (
+                                <div className={classes.idViewerOverlay} onClick={() => this.setState({ showFeeReminder: false })}>
+                                    <div className={classes.successPopup} onClick={(e) => e.stopPropagation()} style={{ borderColor: '#00d4ff', boxShadow: '0 0 30px rgba(0, 212, 255, 0.2)' }}>
+                                        <div className={classes.successIcon} style={{ background: 'rgba(0, 212, 255, 0.2)', color: '#00d4ff', border: '2px solid #00d4ff', fontSize: '1.2rem', fontWeight: 'bold' }}>ID</div>
+                                        <div className={classes.successTitle} style={{ color: '#fff' }}>Upload ID Card</div>
+                                        <div className={classes.successMessage} style={{ marginBottom: '20px' }}>
+                                            Please upload your college ID card to complete your profile verification.
+                                        </div>
+                                        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+                                            <button
+                                                className={classes.successBtn}
+                                                onClick={() => {
+                                                    this.setState({ showFeeReminder: false });
+                                                    this.handleIdCardClick();
+                                                }}
+                                                style={{ background: 'linear-gradient(135deg, #00d4ff, #0088ff)', color: '#fff', fontWeight: 'bold' }}
+                                            >
+                                                Upload Now
+                                            </button>
+                                            <button
+                                                className={classes.successBtn}
+                                                onClick={() => this.setState({ showFeeReminder: false })}
+                                                style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.3)', color: '#fff' }}
+                                            >
+                                                Later
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </>
                     )}
                 </div>
             </SecuenceComponent>
