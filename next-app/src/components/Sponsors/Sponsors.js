@@ -10,7 +10,7 @@ import styles from './Sponsors.module.css';
 // Mock data schema as requested: [{logo: image_url, type: string}]
 // Leaving empty initially to show "To be announced" or can be populated.
 const SPONSORS_DATA = [
-    { logo: "/images/sponsors/psiog_logo.jpg", type: "Title Sponsor", link: "https://psiog.com/" },
+    { logo: "/images/sponsors/psiog_logo.png", type: "Title Sponsor", link: "https://psiog.com/" },
     { text: "BE CSE 2002 Batch Alumnus", type: "Event Sponsor" },
     { logo: "/images/sponsors/dossier.nexus.png", type: "Tech Partner", link: "https://www.dossier.nexus/" },
     { logo: "/images/sponsors/revline.png", type: "Other Sponsor", link: "https://rev-line-gamma.vercel.app/" }

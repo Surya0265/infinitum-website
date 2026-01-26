@@ -2,9 +2,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSearchParams } from 'next/navigation';
-
+import Image from 'next/image';
 import { withStyles } from '@/tools/withStyles';
-import { Secuence } from '@/tools/withAnimation'; // Wait, Secuence component or tool? Original: import { Secuence } from '../components/Secuence';
 import { Secuence as SecuenceComponent } from '@/components/Secuence';
 
 import { Brand } from '@/components/Brand';
@@ -180,6 +179,15 @@ class Component extends React.Component {
                 scheme='expand'
                 onLinkStart={this.onLinkStart}
               />
+              <span className={classes.presenter} style={{marginTop: "20px"}}>powered by</span>
+              <a href='https://psiog.com/'>
+                <Image
+                  src='/images/sponsors/psiog_logo.png'
+                  height={200}
+                  width={200}
+                  alt='psiog digital logo'
+                />
+              </a>
             </div>
             <PrizePool />
             <Collaboration />
