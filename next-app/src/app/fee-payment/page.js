@@ -642,9 +642,11 @@ class FeePaymentPage extends React.Component {
             let errorMessage = 'Failed to upload receipt. Please try again.';
 
             if (error.response?.data) {
-                const { message, details } = error.response.data;
+                const { message, details, userMobile, receiptMobile } = error.response.data;
 
-                if (message === 'Receipt already exists and is verified') {
+                if (userMobile && receiptMobile) {
+                    errorMessage = `Mobile number mismatch! Registered: ${userMobile}, Receipt: ${receiptMobile}`;
+                } else if (message === 'Receipt already exists and is verified') {
                     errorMessage = 'A verified receipt for this fee type already exists. No need to upload again.';
                 } else if (message === 'Receipt type mismatch') {
                     errorMessage = details || 'Receipt type mismatch. Please select the correct fee type.';
@@ -764,9 +766,11 @@ class FeePaymentPage extends React.Component {
             let errorMessage = 'Failed to upload receipt. Please try again.';
 
             if (error.response?.data) {
-                const { message, details } = error.response.data;
+                const { message, details, userMobile, receiptMobile } = error.response.data;
 
-                if (message === 'Receipt already exists and is verified') {
+                if (userMobile && receiptMobile) {
+                    errorMessage = `Mobile number mismatch! Registered: ${userMobile}, Receipt: ${receiptMobile}`;
+                } else if (message === 'Receipt already exists and is verified') {
                     errorMessage = 'A verified receipt for this fee type already exists. No need to upload again.';
                 } else if (message === 'Receipt type mismatch') {
                     errorMessage = details || 'Receipt type mismatch. Please select the correct fee type.';
@@ -810,12 +814,13 @@ class FeePaymentPage extends React.Component {
                                     <div className={classes.section}>
                                         <Text className={classes.sectionTitle}>Payment Instructions</Text>
                                         <ul className={classes.instructionsList}>
-                                            <li>Complete the payment using the provided payment gateway link</li>
-                                            <li>Ensure all payment details are accurate before submission</li>
-                                            <li>Save your payment receipt/transaction ID for future reference</li>
-                                            <li>Upload the payment receipt after successful payment completion</li>
-                                            <li>Allow 24-48 hours for payment verification</li>
-                                            <li>Contact support if you face any issues during payment</li>
+                                            <li><strong>Mobile Number Match:</strong> Ensure the mobile number entered in the payment gateway matches your registered mobile number on this website.</li>
+                                            <li><strong>Strict Policy:</strong> Duplicate receipts or malpractice will lead to severe disciplinary actions.</li>
+                                            <li><strong>Workshop Fee:</strong> ₹350 per workshop. A participant can attend only ONE workshop.</li>
+                                            <li><strong>General/Student Fee:</strong> ₹150. Allows participation in multiple events and paper presentations.</li>
+                                            <li><strong>No Refunds:</strong> All payments are non-refundable. Select your category carefully.</li>
+                                            <li><strong>Receipt Upload:</strong> You must upload the payment receipt here to unlock event/workshop registrations.</li>
+                                            <li><strong>PSG Students:</strong> Students from PSG Tech and PSG iTech are <strong>exempt</strong> from the General Fee.</li>
                                         </ul>
 
                                         <div className={classes.checkboxContainer}>

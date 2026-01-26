@@ -80,7 +80,7 @@ export const eventService = {
 
     // Register for a paper
     registerPaper: async (paperId) => {
-        const response = await api.post(`/api/events/paper/${paperId}/register`);
+        const response = await api.post(`/api/events/papers/${paperId}/register`);
         return response.data;
     },
 

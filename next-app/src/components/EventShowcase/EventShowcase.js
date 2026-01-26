@@ -607,7 +607,7 @@ export default function EventShowcase({ sounds, initialEventId }) {
                         <span>
                             {currentEvent.isRegistered
                                 ? 'Registered'
-                                : (category === 'papers' ? 'Submit' : 'Register Now')
+                                : 'Register Now'
                             }
                         </span>
                     </button>
@@ -926,7 +926,7 @@ export default function EventShowcase({ sounds, initialEventId }) {
                                         <span>
                                             {currentEvent.isRegistered
                                                 ? 'Registered'
-                                                : (category === 'papers' ? 'Submit' : 'Register Now')
+                                                : 'Register Now'
                                             }
                                         </span>
                                     </button>
