@@ -760,7 +760,7 @@ class FeePaymentPage extends React.Component {
             const response = await paymentService.uploadPaymentReceipt(file, this.state.selectedType);
 
             // Handle verification status in success message
-            const verificationMsg =  'Receipt uploaded successfully! Verification pending.';
+            const verificationMsg = 'Receipt uploaded successfully! Verification pending. You will be notified via email when your payment is verified.';
 
             this.setState({
                 uploadSuccess: true,
@@ -883,7 +883,7 @@ class FeePaymentPage extends React.Component {
         try {
             const response = await paymentService.uploadPaymentReceipt(selectedFile, selectedType);
 
-            const verificationMsg = 'Receipt uploaded successfully! Verification pending.';
+            const verificationMsg = 'Receipt uploaded successfully! Verification pending. You will be notified via email when your payment is verified.';
 
             this.setState({
                 uploadSuccess: true,
