@@ -9,7 +9,6 @@ import colleges from '@/app/CollegeList';
 // PSG Colleges that require specific email domains
 const PSG_COLLEGES = {
     'PSG College of Technology (Autonomous), Peelamedu, Coimbatore District 641004': '@psgtech.ac.in',
-    'PSG Institute of Advanced Studies, Peelamedu, Coimbatore District 641004': '@psgias.ac.in',
     'PSG Institute of Technology and Applied Research, Avinashi Road, Neelambur, Coimbatore 641062': '@psgitech.ac.in'
 };
 
